@@ -10,14 +10,14 @@
 #--                                                                                              --#
 #--------------------------------------------------------------------------------------------------#
 
-require 'rexml/document'
+require 'yaml'
 require 'board.rb'
 
 
 #--------------------------------------------------------------------------------------------------#
 #-- Define constants                                                                             --#
 #--------------------------------------------------------------------------------------------------#
-CONFIG = 'sudoku.config.xml'
+CONFIG = 'sudoku.config.yml'
 PUZZLE = 'sudoku.txt'
 
 
@@ -38,24 +38,14 @@ verbose       = false                            # Display extra information whi
 #-- Read the and process the config file                                                         --#
 #--------------------------------------------------------------------------------------------------#
 if File.exists?(CONFIG) and File.readable?(CONFIG)
-  xmlDoc = REXML::Document.new(File.new(CONFIG, File::RDONLY))
-  xmlDoc.root.elements.each do |ele|
-    case ele.name.downcase
-      when 'combinations'
-        begin
-          combinations = ele.text.to_i >= 1 ? ele.text.to_i : 1
-        rescue
-          combinations = 1
-        end
-      when 'threads'
-        begin
-          threads = ele.text.to_i >= 1 ? ele.text.to_i : 1
-        rescue
-          threads = 1
-        end
-      when 'verbose'
-        verbose = %w{yes true on enable 1}.include?(ele.text.downcase)
-    end
+  begin
+    yml = YAML::load(File.open(CONFIG))
+    
+    combinations = yml['combinations'] if yml.key?('combinations')
+    threads = yml['threads'] if yml.key?('threads')
+    verbose = yml['verbose'] if yml.key?('verbose')
+  rescue
+    raise RuntimeError, 'Invalid configuration file [' + CONFIG + ']'
   end
 end
 
