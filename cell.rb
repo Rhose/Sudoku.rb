@@ -3,9 +3,6 @@
 #-- Class:    Sudoku::Cell                                                                       --#
 #-- Purpose:  Class which represents a single Sudoku cell                                        --#
 #--                                                                                              --#
-#-- Rev Hist: 2010-06-12  rws  Initial version                                                   --#
-#--           2010-06-29  rws  Updated possibleValues getter to return a cloned object           --#
-#--                                                                                              --#
 #--------------------------------------------------------------------------------------------------#
 
 module Sudoku

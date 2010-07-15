@@ -4,10 +4,6 @@
 #-- Script:   Sudoku.rb                                                                          --#
 #-- Purpose:  Solved the Sudoku puzzle stored in sudoku.txt                                      --#
 #--                                                                                              --#
-#-- Rev Hist: 2010-06-12  rws  Initial version                                                   --#
-#--           2010-06-28  rws  Changed logic to try combinations and then recursion              --#
-#--           2010-06-29  rws  Added row, col, and block elimination logic                       --#
-#--                                                                                              --#
 #--------------------------------------------------------------------------------------------------#
 
 require 'yaml'
@@ -39,11 +35,11 @@ verbose       = false                            # Display extra information whi
 #--------------------------------------------------------------------------------------------------#
 if File.exists?(CONFIG) and File.readable?(CONFIG)
   begin
-    yml = YAML::load(File.open(CONFIG))
+    yml = YAML::load(File.open(CONFIG,File::RDONLY))
     
-    combinations = yml['combinations'] if yml.key?('combinations')
-    threads = yml['threads'] if yml.key?('threads')
-    verbose = yml['verbose'] if yml.key?('verbose')
+    combinations = yml['combinations'].to_i if yml.key?('combinations')
+    threads = yml['threads'].to_i if yml.key?('threads')
+    verbose = (yml['verbose'] and true) if yml.key?('verbose')
   rescue
     raise RuntimeError, 'Invalid configuration file [' + CONFIG + ']'
   end

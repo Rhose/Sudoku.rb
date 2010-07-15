@@ -3,8 +3,6 @@
 #-- Class:    Sudoku::Board                                                                      --#
 #-- Purpose:  Class which represents the Sudoku board                                            --#
 #--                                                                                              --#
-#-- Rev Hist: 2010-06-12  rws  Initial version                                                   --#
-#--                                                                                              --#
 #--------------------------------------------------------------------------------------------------#
 
 require 'cell.rb'
