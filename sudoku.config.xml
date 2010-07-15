@@ -1,0 +1,5 @@
+<config>
+  <verbose>yes</verbose>
+  <combinations>3</combinations>
+  <threads>3</threads>
+</config>
